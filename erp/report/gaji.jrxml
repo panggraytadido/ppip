@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gaji" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6a002fa-15a0-4116-8f8d-48a07bf978db">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="40"/>
+	<parameter name="bulan" class="java.lang.Integer"/>
+	<parameter name="tahun" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\xampp\\htdocs\\cindygroupserver\\erp\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pegawaiid" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select * from master.karyawan where id=152]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nik" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="jeniskelamin" class="java.lang.String">
+		<fieldDescription><![CDATA[p=pria
+w=wanita]]></fieldDescription>
+	</field>
+	<field name="alamat" class="java.lang.String"/>
+	<field name="tanggallahir" class="java.sql.Date"/>
+	<field name="jeniskaryawanid" class="java.lang.Integer"/>
+	<field name="tempatlahir" class="java.lang.String"/>
+	<field name="jabatanid" class="java.lang.Integer"/>
+	<field name="photo" class="java.lang.String"/>
+	<field name="createddate" class="java.sql.Timestamp"/>
+	<field name="updatedate" class="java.sql.Timestamp"/>
+	<field name="userid" class="java.lang.Integer"/>
+	<field name="tmtmasuk" class="java.sql.Timestamp"/>
+	<field name="tmtresign" class="java.sql.Timestamp"/>
+	<field name="pendidikan" class="java.lang.Integer"/>
+	<field name="hp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="65" y="0" width="100" height="20" uuid="8f15d1e8-f4f8-4fb2-a6d5-e5897d63a9db"/>
+				<text><![CDATA[CINDY GROUP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="20" width="346" height="20" uuid="60e0a562-196d-4697-b4aa-341ec316cde1"/>
+				<text><![CDATA[Penyalur Ikan Pindang,Hyienis, Tradisional dan Frozen Fish]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="40" width="346" height="20" uuid="6554b8c0-b378-425f-963f-998ed02e6906"/>
+				<text><![CDATA[Jl. Tulang Kuning No. 04 Rt. 02 Rw. 05 Telp. (0251) 8614839]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-12" y="-10" width="65" height="63" uuid="4f339168-95d9-48c5-9646-41d4d07fcc7a"/>
+				<imageExpression><![CDATA["C:\\xampp\\htdocs\\cindygroup\\img\\logo2.png"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="-19" y="66" width="574" height="1" uuid="8f16f4d0-2f84-4118-a0d9-9a639fe31590"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="65" height="20" uuid="1e90a475-92a7-43fd-baee-16e23f568e96"/>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="31" width="65" height="20" uuid="ebfc63b6-8237-4244-a19e-6c8e7c9912f9"/>
+				<text><![CDATA[NIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="0" width="8" height="20" uuid="0c824e43-9caa-4bee-a537-136958d3b90e"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="31" width="8" height="20" uuid="c1eac753-8fd3-4a05-8570-c53c282e8d23"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="73" y="31" width="100" height="20" uuid="be9653f9-621b-4be7-8e76-3c25efc05fd4"/>
+				<textFieldExpression><![CDATA[$F{nik}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="0" width="100" height="20" uuid="5b60967b-31ad-46f6-a216-619b770123f6"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="100" uuid="2d8c3fba-175a-4608-a749-987aad348924"/>
+				<subreportParameter name="bulan">
+					<subreportParameterExpression><![CDATA[$P{bulan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tahun">
+					<subreportParameterExpression><![CDATA[$P{tahun}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pegawaiid">
+					<subreportParameterExpression><![CDATA[$P{pegawaiid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "detailgaji.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

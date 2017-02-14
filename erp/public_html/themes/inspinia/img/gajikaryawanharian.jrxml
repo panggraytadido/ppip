@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gajikaryawanharian" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="72c232ff-9333-4ccd-a85e-a0a102bacf87">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="528"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tahun" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="karyawanid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select gkg.totalgaji,gkg.totalkasbon,gkg.totalbayarkasbon,gkg.sisakasbon,gkg.uangmakan,gkg.uangtransport,gkg.insentive,
+gkg.bonus, k.nama as karyawan,gkg.tanggal,k.nik,gkg.gaji
+ from report.gajikaryawanharian gkg inner join master.karyawan k
+	on k.id=gkg.karyawanid
+where gkg.tahun=$P{tahun} and gkg.bulan=$P{bulan} and k.id=$P{karyawanid}]]>
+	</queryString>
+	<field name="totalgaji" class="java.lang.Integer"/>
+	<field name="totalkasbon" class="java.lang.Integer"/>
+	<field name="totalbayarkasbon" class="java.lang.Integer"/>
+	<field name="sisakasbon" class="java.lang.Integer"/>
+	<field name="uangmakan" class="java.lang.Integer"/>
+	<field name="uangtransport" class="java.lang.Integer"/>
+	<field name="insentive" class="java.lang.Integer"/>
+	<field name="bonus" class="java.lang.Integer"/>
+	<field name="karyawan" class="java.lang.String"/>
+	<field name="tanggal" class="java.sql.Timestamp"/>
+	<field name="nik" class="java.lang.String"/>
+	<field name="gaji" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="109" y="50" width="346" height="20" uuid="171815f1-cc86-495a-82bb-1b520f252bed"/>
+				<text><![CDATA[Jl. Tulang Kuning No. 04 Rt. 02 Rw. 05 Telp. (0251) 8614839]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="30" width="346" height="20" uuid="3eff668c-4b91-4d46-b0d3-e03938deff08"/>
+				<text><![CDATA[Penyalur Ikan Pindang,Hyienis, Tradisional dan Frozen Fish]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="85" width="555" height="1" uuid="86662a55-3866-4c8f-8dab-ffbdfde267da"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="109" y="10" width="100" height="20" uuid="1e97b4ca-ea9b-4d45-b2ef-e15c3440f1c9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CINDY GROUP]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="10" width="65" height="63" uuid="187afb93-b1c5-4971-9ea3-3e9ef3307bb2"/>
+				<imageExpression><![CDATA["C:\\xampp\\htdocs\\cindygroupserver\\erp\\public_html\\themes\\inspinia\\img\\logo2.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="31" width="65" height="20" uuid="217c529e-0ac2-45c8-a6c0-a940e5530b39"/>
+				<text><![CDATA[NIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="0" width="8" height="20" uuid="7da4f25d-5a73-4fa9-8ef0-32acd6eca6d7"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="31" width="8" height="20" uuid="6984be4c-7cce-48f6-afaa-9052fe0e4aa3"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="0" width="65" height="20" uuid="3e71b872-e89c-4541-83bc-020377b0b128"/>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="31" width="100" height="20" uuid="21aca057-d40b-4984-931a-c010dfc9be89"/>
+				<textFieldExpression><![CDATA[$F{nik}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="0" width="100" height="20" uuid="cb1b4903-b9eb-4cfd-82e8-83de2626e790"/>
+				<textFieldExpression><![CDATA[$F{karyawan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="265" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="c461d77a-7604-4db2-936f-ea167ff7eb0d"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="0" width="15" height="15" uuid="6d1f47c5-8086-47ae-839f-00375570f331"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="20" width="555" height="20" uuid="85ba9963-670a-46de-9100-42c820eeeb00"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="40" width="555" height="20" uuid="9fb4119f-35ef-4845-93fa-9ea1bf5e4dbb"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="60" width="555" height="20" uuid="f6bb78e5-8536-4a4c-bfbf-d322c1068371"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="80" width="555" height="20" uuid="c3c84e1b-987d-4793-a7bc-42d7c8dff89b"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="100" width="555" height="20" uuid="8d65fccc-82f7-46be-88df-4dc11bd90bdf"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="120" width="555" height="20" uuid="8862d16d-7b1c-4930-80af-fa5c75cbb01f"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="140" width="555" height="20" uuid="749ea605-302f-48dc-a2d5-2750bd51f8ee"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="180" width="555" height="20" uuid="1aa5be27-7bf7-42da-b3d4-7c0a0785474d"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="160" width="555" height="20" uuid="91ce3b51-6538-4f85-9f0a-8ec8da3e55ce"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="35" y="0" width="1" height="200" uuid="e451208f-8aba-41c3-86d6-5c52398470db"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="275" y="0" width="1" height="200" uuid="a2b403f7-d1ef-437b-81e2-deb2395c8690"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="20" width="9" height="15" uuid="139a7b78-7e39-4550-8379-f43f3d348b20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="40" width="9" height="15" uuid="df0849b6-267f-4c26-beee-7a4d29a99210"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="60" width="9" height="15" uuid="5ab7e6a5-5df4-495c-bd2f-d900836f711d"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="80" width="9" height="15" uuid="a0fd1cc7-ff45-4459-894d-2b3d06cb4ab0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="100" width="9" height="15" uuid="9d342182-a251-4e44-9da9-dfddc4168af1"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="120" width="9" height="15" uuid="8689e6f1-d2ee-45a5-bae3-bb714803dccf"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="140" width="9" height="15" uuid="34ce50e4-5dbd-43ee-a0f1-14bb12b9fb00"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="160" width="9" height="15" uuid="3d1efb9a-3066-4883-8e5b-981419572640"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="180" width="9" height="15" uuid="44bb71b1-2638-44e4-b373-0260e7e73c2a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="109" y="0" width="100" height="15" uuid="90d1d925-97ff-4744-9997-9d4b56c3db18"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Uraian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="0" width="100" height="15" uuid="073746c8-43b1-4204-8ba7-f1108f0bf3d9"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah (Rp)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="20" width="100" height="15" uuid="7580082c-1945-4394-8ca5-2faa01bb856e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jumlah Gaji]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="40" width="100" height="15" uuid="f235b950-3664-4926-af84-d5bc494ab2aa"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Jumlah Kasbon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="60" width="100" height="15" uuid="0038bc77-5c5e-41fd-be5f-6f2b1286197b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Bayar Kasbon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="80" width="100" height="15" uuid="b409f803-82fd-4829-bb0c-da5ac44134ec"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sisa Kasbon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="100" width="100" height="15" uuid="208d0f81-b5f8-4b0c-98a7-96aa35d97391"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Uang Makan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="120" width="100" height="15" uuid="df433b43-99bb-46ce-9573-dedb6ea8c400"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Uang Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="140" width="100" height="15" uuid="bec951fb-3f5b-493c-88e5-42cce271cfb7"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[THR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="160" width="100" height="15" uuid="8efb8e35-a647-4199-9812-9306edaa6a71"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Bonus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="180" width="100" height="15" uuid="66472b51-df6d-4b51-9b07-a2b02286a632"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Gaji]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="444" y="20" width="100" height="20" uuid="0dce1c63-dd9a-4df8-a7f8-2ecd730bb0a4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{gaji}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="40" width="100" height="20" uuid="849017e3-d3ea-4d76-a780-ef3719872516"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totalkasbon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="60" width="100" height="20" uuid="318c8a79-ab25-48a1-8355-928dc0eb13fd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totalbayarkasbon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="80" width="100" height="20" uuid="3c89878a-82c0-444b-bc26-ab1e8a387b06"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{sisakasbon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="100" width="100" height="20" uuid="54051a9d-2547-4239-9bbf-10d0cab1b8cb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{uangmakan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="120" width="100" height="20" uuid="378abdfc-6cec-4e1d-9ec3-882c6587dbf3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{uangtransport}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="140" width="100" height="20" uuid="a01be74b-a8d8-4356-92b5-79611a82ef5a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{insentive}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="160" width="100" height="20" uuid="7c8be3db-1541-4028-b7fe-224528260cf8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{bonus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="180" width="100" height="20" uuid="bc573a09-1976-4ffe-af81-7f7ecdd5e99c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totalgaji}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

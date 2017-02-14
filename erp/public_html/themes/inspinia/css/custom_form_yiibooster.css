@@ -1,0 +1,15 @@
+.col-sm-5{
+    width: 200px;
+    text-align: left;
+}  
+.form-horizontal .control-label{        
+    text-align: left;
+}  
+.help-block
+{
+    color: red;
+}
+.has-success .form-control {
+    border-color: #3c763d;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}

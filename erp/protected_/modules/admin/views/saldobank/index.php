@@ -1,0 +1,111 @@
+<?php
+/* @var $this BagianController */
+/* @var $dataProvider CActiveDataProvider */
+
+$this->pageTitle = 'Admin - Saldo Bank';
+
+$this->breadcrumbs=array(
+	'Saldo Bank',
+);
+
+Yii::app()->clientScript->registerScript('search', "
+
+$('.search-form form').submit(function(){
+    $.fn.yiiGridView.update('bagian-grid', {
+        data: $(this).serialize()
+    });
+    return false;
+});
+");
+
+?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+        <div class="alert alert-success fade in">
+                          <button type="button" class="close close-sm" data-dismiss="alert">
+                              <i class="fa fa-times"></i>
+                          </button>
+                          <?php echo Yii::app()->user->getFlash('success'); ?>
+                      </div>    
+<?php endif; ?>
+
+<div class="col-lg-12">
+    <div id="AjaxLoader" style="display: none"><img src="<?php echo Yii::app()->request->baseUrl; ?>/themes/inspinia/img/loader.gif"></img></div>    
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">                     
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">    
+<div style="float:right;"></div>
+
+
+<?php $this->widget('booster.widgets.TbGridView', array(
+	'id'=>'bagian-grid',
+        'type' => 'striped bordered hover',
+	'dataProvider'=>$saldo,
+	//'filter'=>$model,
+	'columns'=>array(		
+		array(
+                    'header'=>'No',
+                    'class'=>'IndexColumn',
+                ),	
+		array('name'=>'nama','value'=>'$data["nama"]','header'=>'Bank'),
+		array('name'=>'norek','value'=>'$data["norek"]','header'=>'No. Rekening'),	
+		array('name'=>'saldo','value'=>'number_format($data["saldo"])','header'=>'Saldo'),		
+	),
+)); ?>
+ </div>
+				</div>	              
+                </div>
+            </div>
+        </div>
+
+<!-- modal add -->
+<div class="modal fade bs-example-modal-sm" id="modal-bagian" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Tambah Data Bagian</h4>
+        </div>
+        <div class="modal-body">
+            <div id="AjaxLoader" style="display: none"><img src="<?php echo Yii::app()->request->baseUrl; ?>/themes/inspinia/img/loader.gif"></img></div>           
+           <br>
+         
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+          <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- -->
+
+<!-- modal update -->
+<div class="modal fade" id="modal-update-bagian" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Update Data Bagian</h4>
+        </div>
+        <div class="modal-body">
+        
+           <br>    
+         
+        </div>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!--  -->

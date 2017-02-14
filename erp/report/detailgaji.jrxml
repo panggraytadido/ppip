@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detailgaji" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8cf93bc4-32cf-4f5b-bf5c-5f3f3e9d858d">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="kasbon" uuid="853c2f43-b1e3-43f0-af02-ce0885687c2f">
+		<queryString language="SQL">
+			<![CDATA[select sum(jumlah) as kasbon from transaksi.kasbon]]>
+		</queryString>
+		<field name="kasbon" class="java.lang.Long"/>
+		<group name="kasbon">
+			<groupExpression><![CDATA[$F{kasbon}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="bulan" class="java.lang.Integer"/>
+	<parameter name="tahun" class="java.lang.Integer"/>
+	<parameter name="pegawaiid" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select sum(upah) as upah from transaksi.bongkarmuat where EXTRACT(MONTH FROM tanggal) = $P{bulan} and EXTRACT(YEAR FROM tanggal)=$P{tahun} and karyawanid=154]]>
+	</queryString>
+	<field name="upah" class="java.lang.Long"/>
+	<variable name="variable1" class="java.lang.Integer"/>
+	<group name="upah">
+		<groupExpression><![CDATA[$F{upah}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="211" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="555" height="20" uuid="75cbf901-0a6f-44f6-814e-7e1c7584899a"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="55" y="3" width="100" height="15" uuid="43006102-0c0e-44e6-b60f-1e9737db08d4"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Uraian]]></text>
+			</staticText>
+			<line>
+				<reportElement x="208" y="0" width="1" height="20" uuid="bfcc4ac4-604b-456e-80cb-54093a8e6c23"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement x="-20" y="20" width="555" height="20" uuid="4ac5a887-d4b1-4760-87ab-340d3edc69a2"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="208" y="20" width="1" height="20" uuid="d2d4a37b-5a27-49c7-b889-d88954055d6a"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="acf46116-21ee-4fd8-95bb-67603a3a00d3"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="1" height="20" uuid="28402426-a1f0-45b2-af9c-b9357c3beccc"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-18" y="4" width="15" height="15" uuid="b5b5f407-337e-4dd0-9a2f-8ccaa21cb0cf"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="23" width="100" height="15" uuid="0bff394b-6907-4701-bc3a-4f12addcd217"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jumlah Gaji]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="40" width="555" height="20" uuid="8dfdf2c2-5bd1-4dbf-a78c-ed7c847e0933"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="208" y="40" width="1" height="20" uuid="69bce5bd-4e4f-4df4-942f-cccb66bd88dc"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<textField pattern="¤ #,##0">
+				<reportElement x="269" y="23" width="100" height="15" uuid="0b26c79b-9cca-468e-888d-7b1e6c50e3c9"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{upah}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="40" width="1" height="20" uuid="ac1c2595-bf2f-411d-8f1d-16e1ea60600f"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="3" y="43" width="100" height="15" uuid="2b8f2279-ec85-4518-838b-72f80c21e69b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Jumlah Kasbon]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="60" width="555" height="20" uuid="856a7d5c-4a1d-44b6-8160-97817e070ffc"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="60" width="1" height="20" uuid="cff98a1a-9ffb-40ca-96b6-0596caf8b172"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="3" y="63" width="100" height="15" uuid="909d364d-467d-4d3a-a7c4-76fc788112c4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Bayar Kasbon]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="80" width="555" height="20" uuid="05879fea-90b7-444e-88fd-ba4768c0571e"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="80" width="1" height="20" uuid="40462ab4-5a61-4bc2-9a81-8260327bbf49"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="3" y="83" width="100" height="15" uuid="99ee4439-ca67-46d7-bc67-ba57639ae6ce"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Sisa Kasbon]]></text>
+			</staticText>
+			<line>
+				<reportElement x="208" y="60" width="1" height="20" uuid="c87e2690-1c6e-4b14-858e-5dde9a697c69"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="80" width="1" height="20" uuid="e3bb3774-4aa4-4b16-bd1a-a14bfda7fccf"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-14" y="23" width="9" height="15" uuid="152f6d21-68b0-4ea2-bb60-88a365b22d57"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="43" width="9" height="15" uuid="4ede1a94-a2f1-436b-b005-eec941a4defd"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="63" width="9" height="15" uuid="d4ad21dc-0536-4e28-ac12-7785433345f4"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="83" width="9" height="15" uuid="f0aa52f8-18cd-4645-905c-ce17b30a8472"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="100" width="555" height="20" uuid="e6303e72-226c-4feb-babf-7e753d34e68c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-20" y="140" width="555" height="20" uuid="00a2ee5b-626d-45b5-b988-11a1b18c7608"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-20" y="120" width="555" height="20" uuid="88f109eb-2af2-4ad5-9092-eb195c96ab55"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-20" y="160" width="555" height="20" uuid="248bdc56-3a7d-443c-9d00-b65b3346f806"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="100" width="1" height="20" uuid="9ba6b4c4-bf6d-4fe0-b562-f35ee685e3e5"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="120" width="1" height="20" uuid="1817b207-42bf-4820-8df6-e63c49cc9b2c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="140" width="1" height="20" uuid="7fb92b75-65f3-4240-98f7-dd8252004bc1"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="160" width="1" height="20" uuid="e0872e6e-f88f-4e5b-be67-092b2f230b06"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-14" y="102" width="9" height="15" uuid="854f989e-c31a-4db6-8aa3-2270cc6a97ec"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="123" width="9" height="15" uuid="8d222589-0343-48f5-85bd-a2db5a9bfc5b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="143" width="9" height="15" uuid="52ce87de-ce0c-4e78-9af2-88335a1fd79e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="162" width="9" height="15" uuid="a41ac3c5-e661-4d2b-a87a-4d19134c5c6f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="102" width="100" height="15" uuid="5cf6e1ba-765d-4bd4-baea-3c61bb7ef493"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Uang Makan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="123" width="100" height="15" uuid="e47a1a39-6dcf-47b0-97ca-83ab038f6109"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Uang Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="143" width="100" height="15" uuid="359fd2ff-a389-4566-bea0-10a80822a141"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[THR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="162" width="100" height="15" uuid="f30b95a2-553b-4aa0-b429-ab7325b07bba"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Bonus]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="180" width="555" height="20" uuid="cc62a30e-83df-4073-8c73-423cc18c25ba"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="180" width="1" height="20" uuid="99ae4294-4b7f-4eed-950a-8c06d0bfd799"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="100" width="1" height="20" uuid="166562fa-c584-4a53-9309-eafd74a3f756"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="120" width="1" height="20" uuid="53ef4f87-549f-499a-abb9-ea50b214a3b6"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="140" width="1" height="20" uuid="9caed61a-fd44-45a2-9ba7-acbc037f2817"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="160" width="1" height="20" uuid="8ab768ed-099e-4b5e-b35d-0455d7f33a1c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="208" y="180" width="1" height="20" uuid="ee20f3c2-2e08-4d02-91e3-864a0bb17791"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-14" y="183" width="9" height="15" uuid="07971d72-7ca8-4098-8dff-e9dcdd0201c9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="183" width="100" height="15" uuid="7e744f5f-34ec-47db-b07f-3b0ea7179e63"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Total Gaji]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

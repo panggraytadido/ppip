@@ -1,0 +1,120 @@
+<?php
+$this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Login");
+$this->breadcrumbs=array(
+    UserModule::t("Login"),
+);
+?>
+<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+<script type="text/javascript">
+    <?php date_default_timezone_set('Asia/Jakarta'); ?>
+    var serverTime = new Date(<?php print date('Y, m, d, H, i, s, 0'); ?>);
+    var clientTime = new Date();
+    var Diff = serverTime.getTime() - clientTime.getTime();    
+    function displayServerTime(){
+        var clientTime = new Date();
+        var time = new Date(clientTime.getTime() + Diff);
+        var sh = time.getHours().toString();
+        var sm = time.getMinutes().toString();
+        var ss = time.getSeconds().toString();
+        document.getElementById("clock").innerHTML = (sh.length==1?"0"+sh:sh) + ":" + (sm.length==1?"0"+sm:sm) + ":" + (ss.length==1?"0"+ss:ss);
+    }
+</script>
+<style>
+    .submit{
+        background-color: #1ab394;
+        color:#FFF;
+    }
+    body {
+
+    background-color: #2f4050;
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>    
+
+<div class="container">
+  <div class="info">
+   
+  </div>
+</div>
+
+
+        
+
+ <body class="blue-bg">
+
+    <div class="loginColumns " > <div style="background-color: #ffffff; padding-left:30px;padding-right:30px;padding-bottom: 10px;border-radius: 3px;" >
+    <div class="row animated bounceInLeft" >
+        
+        <hr style="margin-top: 15px;
+  margin-bottom: 10px;
+  border: 0;
+  border-top: 1px solid grey;"></div>
+        <div class="row" >
+
+            <div class="col-md-6 animated fadeInDown">
+                <h2 class="font-bold ">ERP Sistem Cindygroup</h2>
+
+                <p>
+                    Penyalur Ikan Pindang dan Frozen Fish
+                </p>
+                
+            </div>
+            <div class="col-md-6 animated fadeInDown">
+                <div class="ibox-content" style="background-color: #2f4050;">
+                    <?php echo CHtml::beginForm('','post',array('class'=>'m-t')); ?>
+					<div class="form-group">
+									
+			                    		<!-- <label for="username">Username* &nbsp; <?php //echo $model->getError('username') ? '<span class="alert-danger">'.$model->getError('username').'</span>' : ''; ?></label>-->
+			                        	<center> <img alt="image" class="img-circle animated rotateIn" src="<?php echo Yii::app()->request->baseUrl; ?>/img/logologin.png" /></center>
+			                        </div>
+			                    	<div class="form-group">
+									
+			                    		<!-- <label for="username">Username* &nbsp; <?php //echo $model->getError('username') ? '<span class="alert-danger">'.$model->getError('username').'</span>' : ''; ?></label>-->
+			                        	<?php echo CHtml::activeTextField($model,'username', array('class'=>'form-control', 'Placeholder'=>'Username')); ?>
+			                        </div>
+			                        <div class="form-group">
+			                        	<!--<label for="password">Password* &nbsp; <?php //echo $model->getError('password') ? '<span class="alert-danger">'.$model->getError('password').'</span>' : ''; ?></label>-->
+			                        	<?php echo CHtml::activePasswordField($model,'password', array('class'=>'form-control', 'Placeholder'=>'Password')); ?>
+			                        </div>
+			                        <?php 
+                                                
+                                                $this->widget('booster.widgets.TbButton', array(
+                                                'htmlOptions'=> array('type'=>'submit','class'=>"btn btn-primary block full-width m-b submit animated flash"),
+                                                'label'=>'LOGIN',
+                                                    ));     
+                                                 
+                                                ?>
+
+                <?php echo CHtml::endForm(); ?>      
+                    
+                    <p class="m-t">
+                        <small></small>
+                    </p>
+                </div>
+            </div>
+	
+        </div><div class="row animated bounceInRight">
+        
+        <hr style="margin-top: 15px;
+  margin-bottom: 10px;
+  border: 0;
+  border-top: 1px solid red;"></div>
+        <div class="row animated fadeInDown">
+            <div class="col-md-6  ">
+               <small> Copyright Cindygroup  </small>
+            </div>
+            <div class="col-md-6 text-right">
+               <small>© 2016-2017</small>
+            </div>
+        </div>
+    </div>
+
+ </div>
+</body>
+
+</html>
+
+        
