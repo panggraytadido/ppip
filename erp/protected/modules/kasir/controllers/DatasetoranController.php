@@ -363,25 +363,17 @@ class DatasetoranController extends Controller {
                         //print("<pre>".print_r($dataPenjualan,true)."</pre>");	
                         // die;
                         for ($i = 0; $i < count($dataPenjualan); $i++) {
-                            //kurangi stock barang keseluruhan                            
-                            $stock = Stock::model()->find("barangid=" . $dataPenjualan[$i]["barangid"] . " AND lokasipenyimpananbarangid=" . $dataPenjualan[$i]["lokasipenyimpananbarangid"]);
-                            if (count($stock) > 0) {
-                                if ($stock->jumlah >= $dataPenjualan[$i]["jumlah"]) {
-                                    $stock->jumlah = $stock->jumlah - $dataPenjualan[$i]["jumlah"];
-                                    if ($stock->save()) {
-                                        //stock supplier
-                                        $stockSupplier = Stocksupplier::model()->find("barangid=" . $dataPenjualan[$i]["barangid"] . " AND lokasipenyimpananbarangid=" . $dataPenjualan[$i]["lokasipenyimpananbarangid"] . " AND supplierid=" . $dataPenjualan[$i]["supplierid"]);
-                                        if (count($stockSupplier) > 0) {
-                                            if ($stockSupplier->jumlah >= $dataPenjualan[$i]["jumlah"]) {
-                                                $stockSupplier->jumlah = $stockSupplier->jumlah - $dataPenjualan[$i]["jumlah"];
-                                                $stockSupplier->save();
-                                            }
-                                        }
-                                        //end 
-                                    }
-                                    // end stock keseuluruhan
-                                }
-                            }
+                            
+								//stock supplier
+								$stockSupplier = Stocksupplier::model()->find("barangid=" . $dataPenjualan[$i]["barangid"] . " AND lokasipenyimpananbarangid=" . $dataPenjualan[$i]["lokasipenyimpananbarangid"] . " AND supplierid=" . $dataPenjualan[$i]["supplierid"]);
+								if (count($stockSupplier) > 0) {
+									if ($stockSupplier->jumlah >= $dataPenjualan[$i]["jumlah"]) {
+										$stockSupplier->jumlah = $stockSupplier->jumlah - $dataPenjualan[$i]["jumlah"];
+										$stockSupplier->save();
+									}
+								}
+								//end 
+                                   
                         }
                         //end					
 

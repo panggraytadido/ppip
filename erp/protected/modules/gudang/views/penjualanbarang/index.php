@@ -92,6 +92,26 @@ $this->breadcrumbs=array(
                 array('name'=>'box','value'=>'$data->box','header'=>'Box'),
                 array('name'=>'hargasatuan','value'=>'number_format($data->hargasatuan)','header'=>'Harga'),
                 array('name'=>'hargatotal','value'=>'number_format($data->hargatotal)','header'=>'Total Harga'),
+				array('name'=>'issendtokasir','value'=>function($data,$row){    
+                    if($data->issendtokasir==1)
+                    {
+                         echo '<div class="btn btn-warning">SUDAH</div>';
+                    }
+                    else
+                    {
+                        echo '<div class="btn btn-primary">BELUM</div>';
+                    }
+                },'header'=>'Kirim Ke Kasir','filter'=>false),
+                array('name'=>'tannggalcetak','value'=>function($data,$row){    
+                     if($data->tanggalcetak!="")
+                    {
+                        echo '<div class="btn btn-warning">SUDAH</div>';
+                    }
+                    else
+                    {
+                        echo '<div class="btn btn-primary">BELUM</div>';
+                    }
+                },'header'=>'Proses Kasir','filter'=>false),
 		array(
                     'header'=>'Action',
                     'class'=>'booster.widgets.TbButtonColumn',
@@ -110,12 +130,13 @@ $this->breadcrumbs=array(
                                                        'icon'=>'fa fa-edit',
                                                        'url'=>'Yii::app()->createUrl("gudang/penjualanbarang/update", array("id"=>$data->id))',
                                                         'options'=>array(
-                                                           // 'class'=>'btn btn-success btn-xs',
-                                                            'ajax'=>array(     
+                                                            'class'=>'btn btn-success btn-xs',
+                                                            'ajax'=>array(
                                                                 'beforeSend'=>'function(){  $("#AjaxLoader").show(); }',
                                                                 'type'=>'POST',
                                                                 'url'=>"js:$(this).attr('href')",
                                                                 'success'=>'function(data) {
+																		$("#body-create").html("");
                                                                         $("#AjaxLoader").hide();
                                                                         $("#modal-update #body-update").html(data); 
                                                                         $("#modal-update").modal({backdrop: "static", keyboard: false});

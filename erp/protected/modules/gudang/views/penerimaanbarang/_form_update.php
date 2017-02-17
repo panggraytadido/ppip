@@ -163,7 +163,7 @@
 
 <script type="text/javascript">
        
-    counter = <?php echo count($modelBongkarmuat); ?>;
+    //counter = <?php //echo count($modelBongkarmuat); ?>;
 	
 	function deleteOneKaryawan(karyawanid,baris)
 	{				
@@ -193,6 +193,7 @@
 		$("#inputKaryawan_"+baris+"").html("");
 	}
 	
+	/*
     function tambahKaryawan()
     {
         var tgl = document.getElementById("Gudangpenerimaanbarang_tanggal_input").value;
@@ -253,6 +254,7 @@
         }
 		
     }
+	*/
 
     function deleteKaryawan()
     {

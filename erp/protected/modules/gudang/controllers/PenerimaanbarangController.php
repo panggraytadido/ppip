@@ -49,8 +49,11 @@ class PenerimaanbarangController extends Controller
                     $_POST['Gudangpenerimaanbarang']['createddate'] = $createddate;
                     $_POST['Gudangpenerimaanbarang']['userid'] = Yii::app()->user->id;
                     $_POST['Gudangpenerimaanbarang']['isdeleted'] = 0;
+					$hargaBarang = Hargabarang::model()->find("barangid=".$_POST['Gudangpenerimaanbarang']['barangid']." AND supplierid=".$_POST['Gudangpenerimaanbarang']['supplierid']);
+					
+					$model->hargabarangid=$hargaBarang->id;
                     
-                    $model->attributes=$_POST['Gudangpenerimaanbarang'];
+                    $model->attributes=$_POST['Gudangpenerimaanbarang'];					
                 
                     $cekExist = $model->cekExist();
 
@@ -72,16 +75,11 @@ class PenerimaanbarangController extends Controller
 										$modelStockin->penerimaanbarangid = $model->getPrimaryKey();
 										$modelStockin->save();
 
-										$modelStock = Stock::model()->find('barangid='.$_POST['Gudangpenerimaanbarang']['barangid'].' and lokasipenyimpananbarangid='.$_POST['Gudangpenerimaanbarang']['lokasipenyimpananbarangid']);
-										$modelStock->jumlah = $modelStock->jumlah + $_POST['Gudangpenerimaanbarang']['jumlah'];
-										$modelStock->updateddate = $createddate;
-										$modelStock->save();
-
+										
 										$modelStocksupplier = Stocksupplier::model()->find('barangid='.$_POST['Gudangpenerimaanbarang']['barangid'].' and supplierid='.$_POST['Gudangpenerimaanbarang']['supplierid'].' and lokasipenyimpananbarangid='.$_POST['Gudangpenerimaanbarang']['lokasipenyimpananbarangid']);
 										$modelStocksupplier->jumlah = $modelStocksupplier->jumlah + $_POST['Gudangpenerimaanbarang']['jumlah'];
 										$modelStocksupplier->updateddate = $createddate;
-										
-										
+																				
 										
 										if($modelStocksupplier->save())
 										{										
@@ -110,14 +108,14 @@ class PenerimaanbarangController extends Controller
 
 												//table transfer
 												$barang = Gudangpenerimaanbarang::model()->findByPk($model->id);
-												$hargaBarang = Hargabarang::model()->find("barangid=".$barang->barangid." AND supplierid=".$_POST['Gudangpenerimaanbarang']['supplierid'])->hargamodal;
+												
 												
 												$transfer = new Transfer;
 												$transfer->jenistransferid=1;
-												$transfer->debit=$barang->jumlah*$hargaBarang;
+												$transfer->debit=$barang->jumlah*$hargaBarang->hargamodal;
 												$transfer->supplierid=$_POST['Gudangpenerimaanbarang']['supplierid'];
 												$transfer->penerimaanbarangid=$model->id;
-												$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang);
+												$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang->hargamodal);
 												$transfer->tanggal=$barang->tanggal;
 												$transfer->createddate=$barang->tanggal;
 												$transfer->userid=Yii::app()->user->id;
@@ -196,6 +194,11 @@ class PenerimaanbarangController extends Controller
                 // set data penerimaan barang
                 $_POST['Gudangpenerimaanbarang']['tanggal'] = Yii::app()->DateConvert->ConvertTanggal($_POST['Gudangpenerimaanbarang']['tanggal']);
                 $_POST['Gudangpenerimaanbarang']['updateddate'] = $updatedate;
+				
+				$hargaBarang = Hargabarang::model()->find("barangid=".$_POST['Gudangpenerimaanbarang']['barangid']." AND supplierid=".$_POST['Gudangpenerimaanbarang']['supplierid']);
+				
+				$modelPenerimaan->hargabarangid=$hargaBarang->id;
+				
                 $modelPenerimaan->attributes=$_POST['Gudangpenerimaanbarang'];
                 $valid = $modelPenerimaan->validate();
 
@@ -242,15 +245,14 @@ class PenerimaanbarangController extends Controller
 											}	
 
 											//table transfer
-											$barang = Gudangpenerimaanbarang::model()->findByPk($modelPenerimaan->id);
-											$hargaBarang = Hargabarang::model()->find("barangid=".$barang->barangid." AND supplierid=".$_POST['Gudangpenerimaanbarang']['supplierid'])->hargamodal;
+											$barang = Gudangpenerimaanbarang::model()->findByPk($modelPenerimaan->id);											
 											
 											$transfer = new Transfer;
 											$transfer->jenistransferid=1;
-											$transfer->debit=$barang->jumlah*$hargaBarang;
+											$transfer->debit=$barang->jumlah*$hargaBarang->hargamodal;
 											$transfer->supplierid=$_POST['Gudangpenerimaanbarang']['supplierid'];
 											$transfer->penerimaanbarangid=$modelPenerimaan->id;
-											$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang);
+											$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang->hargamodal);
 											$transfer->tanggal=$barang->tanggal;
 											$transfer->createddate=$barang->tanggal;
 											$transfer->userid=Yii::app()->user->id;
@@ -284,14 +286,13 @@ class PenerimaanbarangController extends Controller
 											
 											//table transfer
 											$barang = Gudangpenerimaanbarang::model()->findByPk($modelPenerimaan->id);
-											$hargaBarang = Hargabarang::model()->find("barangid=".$barang->barangid." AND supplierid=".$_POST['Gudangpenerimaanbarang']['supplierid'])->hargamodal;
-											
+										
 											//update transfer		
 											$transfer = new Transfer;							
-											$transfer->debit=$barang->jumlah*$hargaBarang;
+											$transfer->debit=$barang->jumlah*$hargaBarang->hargamodal;
 											$transfer->jenistransferid=1;
 											$transfer->supplierid=$_POST['Gudangpenerimaanbarang']['supplierid'];							
-											$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang);
+											$transfer->saldo=$saldoTerakhir+($barang->jumlah*$hargaBarang->hargamodal);
 											$transfer->penerimaanbarangid=$modelPenerimaan->id;	
 											$transfer->tanggal=$modelPenerimaan->tanggal;
 											$transfer->createddate=$modelPenerimaan->tanggal;
@@ -493,6 +494,7 @@ class PenerimaanbarangController extends Controller
 							}
 							// ============================
 							
+							/*
 							// UPDATE TRANSAKSI.STOCK
 							if($barangidLama==$_POST['Gudangpenerimaanbarang']['barangid'] && $lokasiLama==$_POST['Gudangpenerimaanbarang']['lokasipenyimpananbarangid']) // jika barangid dan lokasi tidak berubah
 							{
@@ -549,7 +551,8 @@ class PenerimaanbarangController extends Controller
 								$modelStock->updateddate = $updatedate;
 								$modelStock->userid = Yii::app()->user->id;
 								$modelStock->save();
-							}																	
+							}
+							*/	
 						}						
 						$transaction ->commit();
 						echo CJSON::encode(array
@@ -578,10 +581,11 @@ class PenerimaanbarangController extends Controller
                 Yii::app()->end();
             }
                 
-            $this->layout='';
-            $this->renderPartial( '_form_update', array (
-                            'modelPenerimaan' => $modelPenerimaan,                            
+             $this->layout='';
+            $this->renderPartial('_form_update',array(
+                    'modelPenerimaan'=>$modelPenerimaan,                   
             ), false, true );
+
             Yii::app()->end();
 	}
 	

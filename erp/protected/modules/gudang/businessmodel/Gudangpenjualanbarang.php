@@ -22,7 +22,7 @@ class Gudangpenjualanbarang extends Penjualanbarang
 	{
 		$criteria=new CDbCriteria;
 
-                $criteria->select = 'p.id, barangid, tanggal, jumlah, b.kode, b.nama, l.nama as namapelanggan, box, hargasatuan, hargatotal';
+                $criteria->select = 'p.id, barangid, tanggal, jumlah, b.kode, b.nama, l.nama as namapelanggan,issendtokasir,tanggalcetak box, hargasatuan, hargatotal';
                 $criteria->alias = 'p';
                 $criteria->join = 'LEFT JOIN master.barang AS b ON p.barangid=b.id '; 
                 $criteria->join .= 'LEFT JOIN master.pelanggan AS l ON p.pelangganid=l.id '; 

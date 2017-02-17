@@ -50,6 +50,25 @@ class PenjualanbarangController extends Controller
                     $hargamodal = 0;
                     $hargamodal = Hargabarang::model()->find('barangid='.$_POST['Gudangpenjualanbarang']['barangid'].' and supplierid='.$_POST['Gudangpenjualanbarang']['supplierid'])->hargamodal;
                     $_POST['Gudangpenjualanbarang']['labarugi'] = $_POST['Gudangpenjualanbarang']['hargatotal'] - ($hargamodal * $_POST['Gudangpenjualanbarang']['jumlah']);
+					
+					$hargaBarang = Hargabarang::model()->find('barangid='.$_POST['Gudangpenjualanbarang']['barangid'].' and supplierid='.$_POST['Gudangpenjualanbarang']['supplierid']);
+					
+					$model->hargabarangid=$hargaBarang->id;
+					
+					$tanggal = $_POST['Gudangpenjualanbarang']['tanggal'];
+					$cekFaktur = Faktur::model()->findAll("pelangganid=" . $_POST['Gudangpenjualanbarang']['pelangganid'] . " 
+                                                                                                    AND cast(tanggal as date)='$tanggal' 
+                                                                                                            and lokasipenyimpananbarangid=" . Yii::app()->session['lokasiid']);
+                if (count($cekFaktur) != 0) {
+                    for ($i = 0; $i < count($cekFaktur); $i++) {
+                        $data[] = $cekFaktur[$i]['pembelianke'];
+                    }
+                    $pembelianke = max($data) + 1;
+                } else {
+                    $pembelianke = 1;
+                }
+
+                $model->pembelianke = $pembelianke;
 
                     $model->attributes=$_POST['Gudangpenjualanbarang'];
 
@@ -136,18 +155,20 @@ class PenjualanbarangController extends Controller
             
             Yii::app()->end();
         }
+		
  
         public function actionUpdate($id)
         {
             $modelPenjualan = Gudangpenjualanbarang::model()->findByPk($id);            
 
             $modelPenjualan->tanggal = date("m/d/Y", strtotime($modelPenjualan->tanggal));
-            $_POST['Gudangpenjualanbarang']['statuspenjualan'] = ($modelPenjualan->statuspenjualan==false) ? 0 : 1;
+            //$_POST['Gudangpenjualanbarang']['statuspenjualan'] = ($modelPenjualan->statuspenjualan==false) ? 0 : 1;
             
             $this->performAjaxValidationUpdate($modelPenjualan);
             
             if(isset($_POST['Gudangpenjualanbarang']))
             {
+							
                 $modelPenjualan->attributes=$_POST['Gudangpenjualanbarang'];
                 $valid = $modelPenjualan->validate();
 
@@ -156,17 +177,20 @@ class PenjualanbarangController extends Controller
                     // set nilai variable
                     $barangidLama = $modelPenjualan->barangid;
                     $jumlahLama = $modelPenjualan->jumlah;
-                    $createddate = $_POST['waktuinsert'];
-                    $updatedate = $_POST['waktuupdate'];
+                    
                     
                     // set data penjualan barang
                     $_POST['Gudangpenjualanbarang']['tanggal'] = Yii::app()->DateConvert->ConvertTanggal($_POST['Gudangpenjualanbarang']['tanggal']);
-                    $_POST['Gudangpenjualanbarang']['updateddate'] = $updatedate;
+                    $_POST['Gudangpenjualanbarang']['updateddate'] = date("Y-m-d H:", time());
                     
                     $hargamodal = 0;
                     $hargamodal = Hargabarang::model()->find('barangid='.$_POST['Gudangpenjualanbarang']['barangid'].' and supplierid='.$_POST['Gudangpenjualanbarang']['supplierid'])->hargamodal;
                     $_POST['Gudangpenjualanbarang']['labarugi'] = $_POST['Gudangpenjualanbarang']['hargatotal'] - ($hargamodal * $_POST['Gudangpenjualanbarang']['jumlah']);
                     
+					$hargaBarang = Hargabarang::model()->find('barangid='.$_POST['Gudangpenjualanbarang']['barangid'].' and supplierid='.$_POST['Gudangpenjualanbarang']['supplierid']);
+					
+					$modelPenjualan->hargabarangid=$hargaBarang->id;
+					
                     $modelPenjualan->attributes=$_POST['Gudangpenjualanbarang'];
 					
                     $transaction = Yii::app()->db->beginTransaction();
@@ -177,8 +201,8 @@ class PenjualanbarangController extends Controller
 							$modelStockout = Stockout::model()->find('penjualanbarangid='.$modelPenjualan->id);
 							$modelStockout->barangid = $_POST['Gudangpenjualanbarang']['barangid'];
 							$modelStockout->jumlah = $_POST['Gudangpenjualanbarang']['jumlah'];
-							$modelStockout->tanggal = $_POST['Gudangpenjualanbarang']['tanggal'];
-							$modelStockout->updatedate = $updatedate;
+							//$modelStockout->tanggal = Yii::app()->DateConvert->ConvertTanggal($_POST['Gudangpenjualanbarang']['tanggal']);
+							$modelStockout->updatedate = date("Y-m-d H:", time());;
 							$modelStockout->save();						
 						}
 						
